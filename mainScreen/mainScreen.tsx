@@ -12,6 +12,7 @@ import {
 import {highLevelLineDetails} from '../dataFolder/appTypes';
 import LineSummaryHeader from '../components/lineSummaryHeader';
 import LineSummaryDetails from '../components/lineSummaryDetails';
+import LineStopsDetails from '../components/lineStopsDetails';
 
 const MainScreen = () => {
   const lineDetailsInitState: highLevelLineDetails[] = [
@@ -61,6 +62,9 @@ const MainScreen = () => {
         <LineSummaryDetails lineSummary={lineDetails} section={'status'} />
         <LineSummaryHeader headingText={lineServiceTypesHeadings} />
         <LineSummaryDetails lineSummary={lineDetails} section={'serviceType'} />
+        {/* =============================================== */}
+        {/* line stops section */}
+        <LineStopsDetails lineId={'victoria'} />
       </View>
     </>
   );

@@ -36,18 +36,20 @@ export type LineSummaryDetailsProps = {
   section?: lineSummarySections;
 };
 
+export type LineStopsProps = {
+  lineId: string;
+};
+
+export type useFetchDataProps = {
+  apiURL: string;
+  section?: lineSummarySections;
+};
+
 export type HighLevelLineStatus = {
-  // $type: string;
   id: string;
   name: string;
-  // modeName: string;
-  // disruptions: any;
-  // created: string;
-  // modified: string;
   lineStatuses: LineStatus[];
-  // routeSections: any;
   serviceTypes: ServiceType[];
-  // crowding: Crowding;
 };
 
 export type LineStatus = {
@@ -68,4 +70,15 @@ export type ServiceType = {
 
 export type Crowding = {
   $type: string;
+};
+
+export type LineStops = {
+  lineId: string;
+  lineName: string;
+  direction: string;
+  stations: Stations[];
+};
+
+export type Stations = {
+  name: string;
 };

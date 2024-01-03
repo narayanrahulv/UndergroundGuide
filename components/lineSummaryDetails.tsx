@@ -1,35 +1,25 @@
 import {Text, View, StyleSheet} from 'react-native';
-import React, {useState, useEffect} from 'react';
-import {
-  LineSummaryDetailsProps,
-  HighLevelLineStatus,
-} from '../dataFolder/appTypes';
+import React from 'react';
+import {LineSummaryDetailsProps} from '../dataFolder/appTypes';
 import {tflAPIEndpoints} from '../dataFolder/undergroundLineData';
+import useFetchData from '../hooks/useFetchData';
 
 const LineSummaryDetails = (props: LineSummaryDetailsProps) => {
   const {lineSummary} = props;
   const {section} = props;
 
-  const initLineStatus: HighLevelLineStatus[] = [];
-
-  const [lineStatusLoading, setLineStatusLoading] = useState(true);
-  const [lineStatusData, setLineStatusData] = useState(initLineStatus);
-
-  //if section = status, fetch line status data from TFL end point once and save it in state for subsequent returns
+  //if section = status or serviceType, fetch line status data from TFL end point
   //build the API url that needs to be called
   let apiURL =
     tflAPIEndpoints.lineStatusEndpointUrl.prefix +
     lineSummary[0].name +
     tflAPIEndpoints.lineStatusEndpointUrl.suffix;
 
-  //call the API
-  useEffect(() => {
-    fetch(apiURL)
-      .then(resp => resp.json())
-      .then(data => setLineStatusData(data))
-      .catch(error => console.error(error))
-      .finally(() => setLineStatusLoading(false));
-  }, [apiURL]);
+  //call the API via the useFetchData custom hook
+  const {dataLoading, dataRetrievalError, dataRetrieved} = useFetchData({
+    apiURL: apiURL,
+    section: section,
+  });
 
   return (
     <>
@@ -56,31 +46,28 @@ const LineSummaryDetails = (props: LineSummaryDetailsProps) => {
         </View>
       )}
       {/* line status summary */}
-      {section === 'status' && (
+      {section === 'status' && dataRetrieved !== null && (
         <View style={lineSummaryDetailsStyles.contentcontainer}>
-          {lineStatusLoading ? (
+          {dataLoading ? (
             <Text>{'Retrieving line status'}</Text>
           ) : (
             <>
               <View style={lineSummaryDetailsStyles.summaryCell}>
                 <Text>
-                  {
-                    lineStatusData[0]?.lineStatuses[0]
-                      ?.statusSeverityDescription
-                  }
+                  {dataRetrieved[0]?.lineStatuses[0]?.statusSeverityDescription}
                 </Text>
               </View>
               <View style={lineSummaryDetailsStyles.summaryCell}>
-                <Text>{lineStatusData[0]?.lineStatuses[0]?.reason}</Text>
+                <Text>{dataRetrieved[0]?.lineStatuses[0]?.reason}</Text>
               </View>
             </>
           )}
         </View>
       )}
       {/* line service types (i.e. regular/night service) summary: serviceType */}
-      {section === 'serviceType' && (
+      {section === 'serviceType' && dataRetrieved !== null && (
         <View style={lineSummaryDetailsStyles.contentcontainer}>
-          {lineStatusData[0]?.serviceTypes.map(st => (
+          {dataRetrieved[0]?.serviceTypes.map(st => (
             <View style={lineSummaryDetailsStyles.summaryCell}>
               <Text>{st.name}</Text>
             </View>
