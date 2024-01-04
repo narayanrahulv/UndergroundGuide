@@ -46,18 +46,11 @@ export const undergroundLineDetails: highLevelLineDetails[] = [
     color: 'brown',
     direction: 'north south',
   },
-];
-
-export const lineNames: string[] = [
-  'central',
-  'bakerloo',
-  'victoria',
-  'hammersmith-city',
-  'circle',
-  'jubilee',
-  'northern',
-  'piccadilly',
-  'district',
+  {
+    name: 'metropolitan',
+    color: 'magenta',
+    direction: 'north south',
+  },
 ];
 
 export const basicLineSummaryHeadings: string[] = [
@@ -71,6 +64,9 @@ export const lineStatusSummaryHeadings: string[] = ['Line Status', 'Reason'];
 export const lineServiceTypesHeadings: string[] = ['service types'];
 
 export const tflAPIEndpoints = {
+  lineNamesUrl: {
+    url: 'https://api.tfl.gov.uk/Line/Mode/tube',
+  },
   lineStatusEndpointUrl: {
     prefix: 'https://api.tfl.gov.uk/Line/',
     suffix: '/Status',

@@ -4,17 +4,32 @@ import {Text, View, StyleSheet} from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import {
   undergroundLineDetails,
-  lineNames,
   basicLineSummaryHeadings,
   lineStatusSummaryHeadings,
   lineServiceTypesHeadings,
+  tflAPIEndpoints,
 } from '../dataFolder/undergroundLineData';
 import {highLevelLineDetails} from '../dataFolder/appTypes';
 import LineSummaryHeader from '../components/lineSummaryHeader';
 import LineSummaryDetails from '../components/lineSummaryDetails';
-import LineStopsDetails from '../components/lineStopsDetails';
+// import LineStopsDetails from '../components/lineStopsDetails';
+import useFetchData from '../hooks/useFetchData';
 
 const MainScreen = () => {
+  //get line names from TFL API end point
+  let lineNamesUrl = tflAPIEndpoints.lineNamesUrl.url;
+
+  const {dataRetrieved} = useFetchData({
+    apiURL: lineNamesUrl,
+    section: 'basic',
+  });
+
+  let lineNames: string[] = [];
+
+  dataRetrieved?.forEach(line => {
+    lineNames.push(line.id);
+  });
+
   const lineDetailsInitState: highLevelLineDetails[] = [
     {
       name: 'select a line',
@@ -64,7 +79,7 @@ const MainScreen = () => {
         <LineSummaryDetails lineSummary={lineDetails} section={'serviceType'} />
         {/* =============================================== */}
         {/* line stops section */}
-        <LineStopsDetails lineId={'victoria'} />
+        {/* <LineStopsDetails lineId={'victoria'} /> */}
       </View>
     </>
   );

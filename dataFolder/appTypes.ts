@@ -1,3 +1,4 @@
+//basic display types
 export type highLevelLineDetails = {
   name: lineNames;
   color: string;
@@ -21,11 +22,14 @@ export type lineNames =
   | 'northern'
   | 'piccadilly'
   | 'district'
+  | 'metropolitan'
   | 'select a line'
   | 'not found';
 
 export type lineSummarySections = 'basic' | 'status' | 'serviceType';
+//end basic display types
 
+//props
 export type LineSummaryHeaderProps = {
   headingText: string[];
   section?: lineSummarySections;
@@ -44,12 +48,19 @@ export type useFetchDataProps = {
   apiURL: string;
   section?: lineSummarySections;
 };
+//end props
 
+//models representing data retrieved from back-end
 export type HighLevelLineStatus = {
   id: string;
   name: string;
   lineStatuses: LineStatus[];
   serviceTypes: ServiceType[];
+};
+
+export type LineModeTubeNames = {
+  id: string;
+  name: string;
 };
 
 export type LineStatus = {
@@ -82,3 +93,4 @@ export type LineStops = {
 export type Stations = {
   name: string;
 };
+//end models representing data retrieved from back-end

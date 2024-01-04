@@ -16,7 +16,7 @@ const LineSummaryDetails = (props: LineSummaryDetailsProps) => {
     tflAPIEndpoints.lineStatusEndpointUrl.suffix;
 
   //call the API via the useFetchData custom hook
-  const {dataLoading, dataRetrievalError, dataRetrieved} = useFetchData({
+  const {dataLoading, dataRetrieved} = useFetchData({
     apiURL: apiURL,
     section: section,
   });

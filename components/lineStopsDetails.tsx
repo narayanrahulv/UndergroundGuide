@@ -2,7 +2,7 @@ import {Text, View} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {LineStopsProps, LineStops} from '../dataFolder/appTypes';
 import {tflAPIEndpoints} from '../dataFolder/undergroundLineData';
-//can navigatge here from lineSummaryDetails via a button that says "see stops on this line": will allow us to display react navigation
+//can navigatge here from lineSummaryDetails via a button that says "see stops on this line"
 const LineStopsDetails = (props: LineStopsProps) => {
   const {lineId} = props;
 
@@ -29,7 +29,9 @@ const LineStopsDetails = (props: LineStopsProps) => {
       .catch(error => console.error(error));
   }, [apiURL]);
 
-  console.log(JSON.stringify(lineStopsData.stations[16]?.name));
+  console.log('++++++');
+  console.log(JSON.stringify(lineStopsData.stations[1]?.name));
+  console.log('++++++');
 
   return (
     <View>
