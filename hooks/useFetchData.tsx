@@ -13,9 +13,9 @@ const useFetchData = (props: useFetchDataProps) => {
 
   const initLineNames: LineModeTubeNames[] = [];
 
-  const dataRetrievedBySection = (
+  const initStatusBySection = (
     sectionName: lineSummarySections | undefined,
-  ): HighLevelLineStatus[] | LineModeTubeNames[] | null => {
+  ): LineModeTubeNames[] | HighLevelLineStatus[] | null => {
     switch (sectionName) {
       case 'status':
         return initLineStatus;
@@ -30,7 +30,7 @@ const useFetchData = (props: useFetchDataProps) => {
   const [dataRetrievalError, setDataRetrievalError] = useState(null);
 
   const [dataRetrieved, setDataRetrieved] = useState(
-    dataRetrievedBySection(section),
+    initStatusBySection(section),
   );
 
   useEffect(() => {
