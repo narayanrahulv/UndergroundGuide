@@ -38,9 +38,6 @@ const LineSummaryDetails = (props: LineSummaryDetailsProps) => {
                   {backgroundColor: lineSummary[0].color},
                 ]}
               />
-              <View key={key} style={lineSummaryDetailsStyles.summaryCell}>
-                <Text>{lineSummary[0].direction}</Text>
-              </View>
             </>
           ))}
         </View>

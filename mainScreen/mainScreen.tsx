@@ -34,14 +34,12 @@ const MainScreen = () => {
     {
       name: 'select a line',
       color: 'none',
-      direction: 'select a line',
     },
   ];
 
   const emptyLineDetails: highLevelLineDetails = {
     name: 'not found',
     color: 'beige',
-    direction: 'not found',
   };
 
   const [lineDetails, setLineDetails] = useState(lineDetailsInitState);

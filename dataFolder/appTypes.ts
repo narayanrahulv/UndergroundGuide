@@ -2,15 +2,7 @@
 export type highLevelLineDetails = {
   name: lineNames;
   color: string;
-  direction?: direction;
 };
-
-export type direction =
-  | 'north south'
-  | 'east west'
-  | 'unknown'
-  | 'not found'
-  | 'select a line';
 
 export type lineNames =
   | 'central'

@@ -18,9 +18,9 @@ const useFetchData = (props: useFetchDataProps) => {
   ): LineModeTubeNames[] | HighLevelLineStatus[] | null => {
     switch (sectionName) {
       case 'status':
-        return initLineStatus;
+        return initLineStatus as HighLevelLineStatus[];
       case 'basic':
-        return initLineNames;
+        return initLineNames as LineModeTubeNames[];
     }
 
     return null;
