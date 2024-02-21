@@ -32,6 +32,14 @@ export type LineSummaryDetailsProps = {
   section?: lineSummarySections;
 };
 
+export type LineSummaryProps = {
+  lineDetails: highLevelLineDetails[];
+  section?: lineSummarySections;
+  basicDetailsHeadingText?: string[];
+  statusHeadingText?: string[];
+  serviceTypesHeadingText?: string[];
+};
+
 export type LineStopsProps = {
   lineId: string;
 };
@@ -44,6 +52,13 @@ export type useFetchDataProps = {
 
 //models representing data retrieved from back-end
 export type HighLevelLineStatus = {
+  id: string;
+  name: string;
+  lineStatuses: LineStatus[];
+  serviceTypes: ServiceType[];
+};
+
+export type LineStatusDetails = {
   id: string;
   name: string;
   lineStatuses: LineStatus[];

@@ -10,9 +10,9 @@ import {
   tflAPIEndpoints,
 } from '../dataFolder/undergroundLineData';
 import {highLevelLineDetails} from '../dataFolder/appTypes';
-import LineSummaryHeader from '../components/lineSummaryHeader';
-import LineSummaryDetails from '../components/lineSummaryDetails';
 // import LineStopsDetails from '../components/lineStopsDetails';
+import BasicSummary from '../components/lineInfo/basicSummary';
+import ServiceTypeSummary from '../components/lineInfo/lineStatusSummary';
 import useFetchData from '../hooks/useFetchData';
 
 const MainScreen = () => {
@@ -69,12 +69,15 @@ const MainScreen = () => {
         <View style={mainScreenStyles.topbluecontainer} />
         {/* =============================================== */}
         {/* line details/summary section */}
-        <LineSummaryHeader headingText={basicLineSummaryHeadings} />
-        <LineSummaryDetails lineSummary={lineDetails} section={'basic'} />
-        <LineSummaryHeader headingText={lineStatusSummaryHeadings} />
-        <LineSummaryDetails lineSummary={lineDetails} section={'status'} />
-        <LineSummaryHeader headingText={lineServiceTypesHeadings} />
-        <LineSummaryDetails lineSummary={lineDetails} section={'serviceType'} />
+        <BasicSummary
+          lineDetails={lineDetails}
+          basicDetailsHeadingText={basicLineSummaryHeadings}
+        />
+        <ServiceTypeSummary
+          lineDetails={lineDetails}
+          statusHeadingText={lineStatusSummaryHeadings}
+          serviceTypesHeadingText={lineServiceTypesHeadings}
+        />
         {/* =============================================== */}
         {/* line stops section */}
         {/* <LineStopsDetails lineId={'victoria'} /> */}

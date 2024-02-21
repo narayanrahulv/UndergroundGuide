@@ -1,37 +1,15 @@
 import {useState, useEffect} from 'react';
-import {
-  useFetchDataProps,
-  HighLevelLineStatus,
-  lineSummarySections,
-  LineModeTubeNames,
-} from '../dataFolder/appTypes';
+import {useFetchDataProps, LineStatusDetails} from '../dataFolder/appTypes';
 
 const useFetchData = (props: useFetchDataProps) => {
-  const {apiURL, section} = props;
+  const {apiURL} = props;
 
-  const initLineStatus: HighLevelLineStatus[] = [];
-
-  const initLineNames: LineModeTubeNames[] = [];
-
-  const initStatusBySection = (
-    sectionName: lineSummarySections | undefined,
-  ): LineModeTubeNames[] | HighLevelLineStatus[] | null => {
-    switch (sectionName) {
-      case 'status':
-        return initLineStatus as HighLevelLineStatus[];
-      case 'basic':
-        return initLineNames as LineModeTubeNames[];
-    }
-
-    return null;
-  };
+  const initLineStatus: LineStatusDetails[] = [];
 
   const [dataLoading, setIsDataLoading] = useState(true);
   const [dataRetrievalError, setDataRetrievalError] = useState(null);
 
-  const [dataRetrieved, setDataRetrieved] = useState(
-    initStatusBySection(section),
-  );
+  const [dataRetrieved, setDataRetrieved] = useState(initLineStatus);
 
   useEffect(() => {
     fetch(apiURL)
