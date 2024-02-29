@@ -1,7 +1,7 @@
 import {Text, View} from 'react-native';
 import React, {useState, useEffect} from 'react';
-import {LineStopsProps, LineStops} from '../dataFolder/appTypes';
-import {tflAPIEndpoints} from '../dataFolder/undergroundLineData';
+import {LineStopsProps, LineStops} from '../../dataFolder/appTypes';
+import {tflAPIEndpoints} from '../../dataFolder/undergroundLineData';
 //can navigatge here from lineSummaryDetails via a button that says "see stops on this line"
 const LineStopsDetails = (props: LineStopsProps) => {
   const {lineId} = props;

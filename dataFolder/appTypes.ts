@@ -40,6 +40,16 @@ export type LineSummaryProps = {
   serviceTypesHeadingText?: string[];
 };
 
+//TEMP TESTING CODE
+export type LineStatusAndServiceTypeProps = {
+  lineName: string;
+  section?: lineSummarySections;
+  color?: string;
+  statusHeadingText?: string[];
+  serviceTypesHeadingText?: string[];
+};
+//END TEMP TESTING CODE
+
 export type LineStopsProps = {
   lineId: string;
 };

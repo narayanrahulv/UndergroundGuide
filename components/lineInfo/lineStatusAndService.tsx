@@ -2,16 +2,17 @@ import {Text, View, StyleSheet} from 'react-native';
 import React from 'react';
 import {tflAPIEndpoints} from '../../dataFolder/undergroundLineData';
 import useFetchData from '../../hooks/useFetchData';
-import {LineSummaryProps} from '../../dataFolder/appTypes';
+import {LineStatusAndServiceTypeProps} from '../../dataFolder/appTypes';
+import LineNameAndColorPanel from '../../components/lineInfo/lineNameAndColorPanel';
 
-const ServiceTypeSummary = (props: LineSummaryProps) => {
-  const {lineDetails, section, statusHeadingText, serviceTypesHeadingText} =
+const LineStatusAndService = (props: LineStatusAndServiceTypeProps) => {
+  const {lineName, section, color, statusHeadingText, serviceTypesHeadingText} =
     props;
 
   //if we have a value passed in for lineDetails, we will set a URL to call the API
-  let apiURL = lineDetails
+  let apiURL = lineName
     ? tflAPIEndpoints.lineStatusEndpointUrl.prefix +
-      lineDetails[0].name +
+      lineName +
       tflAPIEndpoints.lineStatusEndpointUrl.suffix
     : '';
 
@@ -24,13 +25,18 @@ const ServiceTypeSummary = (props: LineSummaryProps) => {
   return (
     <>
       {/* line status & service types are only shown if we have a value for dataRetrieved */}
-      {dataRetrieved !== null && (
+      {dataRetrieved !== null && dataRetrieved !== [] && (
         <>
+          {/* line status header */}
+          <LineNameAndColorPanel
+            name={lineName ?? 'not found'}
+            color={color ?? ''}
+          />
           {/* line status heading text */}
           <View style={serviceTypeSummaryStyles.contentheadercontainer}>
             {statusHeadingText?.map(text => {
               return (
-                <View style={serviceTypeSummaryStyles.headerCell}>
+                <View style={serviceTypeSummaryStyles.headerCell} key={text}>
                   <Text style={serviceTypeSummaryStyles.headerText}>
                     {text}
                   </Text>
@@ -41,7 +47,9 @@ const ServiceTypeSummary = (props: LineSummaryProps) => {
           {/* line status summary */}
           <View style={serviceTypeSummaryStyles.contentcontainer}>
             {dataLoading ? (
-              <Text>{'Retrieving line status'}</Text>
+              <View style={serviceTypeSummaryStyles.summaryCell}>
+                <Text>{'Retrieving line status'}</Text>
+              </View>
             ) : (
               <>
                 <View style={serviceTypeSummaryStyles.summaryCell}>
@@ -62,7 +70,7 @@ const ServiceTypeSummary = (props: LineSummaryProps) => {
           <View style={serviceTypeSummaryStyles.contentheadercontainer}>
             {serviceTypesHeadingText?.map(text => {
               return (
-                <View style={serviceTypeSummaryStyles.headerCell}>
+                <View style={serviceTypeSummaryStyles.headerCell} key={text}>
                   <Text style={serviceTypeSummaryStyles.headerText}>
                     {text}
                   </Text>
@@ -73,7 +81,7 @@ const ServiceTypeSummary = (props: LineSummaryProps) => {
           {/* line service types (i.e. regular/night service) summary: serviceType */}
           <View style={serviceTypeSummaryStyles.contentcontainer}>
             {dataRetrieved[0]?.serviceTypes.map(st => (
-              <View style={serviceTypeSummaryStyles.summaryCell}>
+              <View style={serviceTypeSummaryStyles.summaryCell} key={st.name}>
                 <Text>{st.name}</Text>
               </View>
             ))}
@@ -81,17 +89,17 @@ const ServiceTypeSummary = (props: LineSummaryProps) => {
         </>
       )}
 
-      {/* if no data is retrieved, display a prompt indicating that no service type info was retrieved */}
+      {/* if no data is retrieved, display a prompt indicating that no status and service type info was retrieved */}
       {dataRetrieved === null && (
         <View style={serviceTypeSummaryStyles.contentcontainer}>
-          <Text>{'No service type data available'}</Text>
+          <Text>{'Line status and service type data not available'}</Text>
         </View>
       )}
     </>
   );
 };
 
-export default ServiceTypeSummary;
+export default LineStatusAndService;
 
 const serviceTypeSummaryStyles = StyleSheet.create({
   headerCell: {flex: 1, justifyContent: 'center', alignItems: 'center'},
@@ -104,6 +112,15 @@ const serviceTypeSummaryStyles = StyleSheet.create({
   summaryText: {fontWeight: 'bold'},
   contentcontainer: {
     marginTop: 30,
+    flexDirection: 'row',
+  },
+  boxSimple: {
+    backgroundColor: '#fff',
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: '#000',
+    padding: 10,
+    margin: 20,
     flexDirection: 'row',
   },
 });
