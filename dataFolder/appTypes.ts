@@ -32,15 +32,6 @@ export type LineSummaryDetailsProps = {
   section?: lineSummarySections;
 };
 
-export type LineSummaryProps = {
-  lineDetails: highLevelLineDetails[];
-  section?: lineSummarySections;
-  basicDetailsHeadingText?: string[];
-  statusHeadingText?: string[];
-  serviceTypesHeadingText?: string[];
-};
-
-//TEMP TESTING CODE
 export type LineStatusAndServiceTypeProps = {
   lineName: string;
   section?: lineSummarySections;
@@ -48,7 +39,6 @@ export type LineStatusAndServiceTypeProps = {
   statusHeadingText?: string[];
   serviceTypesHeadingText?: string[];
 };
-//END TEMP TESTING CODE
 
 export type LineStopsProps = {
   lineId: string;
