@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react';
-import {useFetchDataProps, LineStatusDetails} from '../dataFolder/appTypes';
+import {useFetchDataProps} from '../dataFolder/appTypes';
+import {LineStatusDetails} from '../dataFolder/models/lineStatusModels';
 
 const useFetchData = (props: useFetchDataProps) => {
   const {apiURL} = props;

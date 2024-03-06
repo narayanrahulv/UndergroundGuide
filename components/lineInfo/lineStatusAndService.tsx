@@ -9,7 +9,7 @@ const LineStatusAndService = (props: LineStatusAndServiceTypeProps) => {
   const {lineName, section, color, statusHeadingText, serviceTypesHeadingText} =
     props;
 
-  //if we have a value passed in for lineDetails, we will set a URL to call the API
+  //if we have a value passed in for lineName, we will set a URL to call the API
   let apiURL = lineName
     ? tflAPIEndpoints.lineStatusEndpointUrl.prefix +
       lineName +

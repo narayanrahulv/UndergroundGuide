@@ -41,7 +41,8 @@ export type LineStatusAndServiceTypeProps = {
 };
 
 export type LineStopsProps = {
-  lineId: string;
+  lineName: string;
+  section?: lineSummarySections;
 };
 
 export type useFetchDataProps = {
@@ -49,55 +50,3 @@ export type useFetchDataProps = {
   section?: lineSummarySections;
 };
 //end props
-
-//models representing data retrieved from back-end
-export type HighLevelLineStatus = {
-  id: string;
-  name: string;
-  lineStatuses: LineStatus[];
-  serviceTypes: ServiceType[];
-};
-
-export type LineStatusDetails = {
-  id: string;
-  name: string;
-  lineStatuses: LineStatus[];
-  serviceTypes: ServiceType[];
-};
-
-export type LineModeTubeNames = {
-  id: string;
-  name: string;
-};
-
-export type LineStatus = {
-  type: string;
-  id: number;
-  statusSeverity: number;
-  statusSeverityDescription: string;
-  reason: string;
-  created: string;
-  validityPeriods: any;
-};
-
-export type ServiceType = {
-  $type: string;
-  name: string;
-  uri: string;
-};
-
-export type Crowding = {
-  $type: string;
-};
-
-export type LineStops = {
-  lineId: string;
-  lineName: string;
-  direction: string;
-  stations: Stations[];
-};
-
-export type Stations = {
-  name: string;
-};
-//end models representing data retrieved from back-end
