@@ -33,7 +33,7 @@ export type LineSummaryDetailsProps = {
 };
 
 export type LineStatusAndServiceTypeProps = {
-  lineName: string;
+  lineName: lineNames;
   section?: lineSummarySections;
   color?: string;
   statusHeadingText?: string[];
