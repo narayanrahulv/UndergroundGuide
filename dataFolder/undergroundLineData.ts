@@ -59,6 +59,6 @@ export const tflAPIEndpoints = {
   },
   lineStopsSequenceUrl: {
     prefix: 'https://api.tfl.gov.uk/Line/',
-    suffix: '/Route/Sequence/',
+    suffix: '/StopPoints',
   },
 };

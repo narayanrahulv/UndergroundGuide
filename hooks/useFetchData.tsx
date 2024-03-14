@@ -1,26 +1,33 @@
-import {useState, useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {useFetchDataProps} from '../dataFolder/appTypes';
-import {LineStatusDetails} from '../dataFolder/models/lineStatusModels';
+import {useFetchHookReturnedData} from '../dataFolder/appTypes';
 
-const useFetchData = (props: useFetchDataProps) => {
+export function useFetchData(
+  props: useFetchDataProps,
+): useFetchHookReturnedData {
   const {apiURL} = props;
 
-  const initLineStatus: LineStatusDetails[] = [];
-
-  const [dataLoading, setIsDataLoading] = useState(true);
-  const [dataRetrievalError, setDataRetrievalError] = useState(null);
-
-  const [dataRetrieved, setDataRetrieved] = useState(initLineStatus);
+  const [dataLoadingState, setIsDataLoading] = useState(true);
+  const [dataRetrievalErrorState, setDataRetrievalError] = useState(null);
+  const [dataRetrievedState, setDataRetrieved] = useState();
 
   useEffect(() => {
     fetch(apiURL)
       .then(resp => resp.json())
-      .then(data => setDataRetrieved(data))
-      .catch(error => setDataRetrievalError(error))
-      .finally(() => setIsDataLoading(false));
+      .then(data => {
+        setDataRetrieved(data);
+      })
+      .catch(error => {
+        setDataRetrievalError(error);
+      })
+      .finally(() => {
+        setIsDataLoading(false);
+      });
   }, [apiURL]);
 
-  return {dataLoading, dataRetrievalError, dataRetrieved};
-};
-
-export default useFetchData;
+  return {
+    dataLoading: dataLoadingState,
+    dataRetrievalError: dataRetrievalErrorState,
+    dataRetrieved: dataRetrievedState,
+  };
+}

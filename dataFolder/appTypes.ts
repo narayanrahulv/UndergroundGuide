@@ -1,4 +1,9 @@
-//basic display types
+import {LineStatusDetails} from '../dataFolder/models/lineStatusModels';
+import {StopPoint} from '../dataFolder/models/stopPointsModels';
+
+//=========
+//display related types
+//=========
 export type highLevelLineDetails = {
   name: lineNames;
   color: string;
@@ -19,9 +24,10 @@ export type lineNames =
   | 'not found';
 
 export type lineSummarySections = 'basic' | 'status' | 'serviceType';
-//end basic display types
 
+//=========
 //props
+//=========
 export type LineSummaryHeaderProps = {
   headingText: string[];
   section?: lineSummarySections;
@@ -48,5 +54,14 @@ export type LineStopsProps = {
 export type useFetchDataProps = {
   apiURL: string;
   section?: lineSummarySections;
+  fetchedDataType?: string;
 };
-//end props
+
+//=========
+//general types
+//=========
+export type useFetchHookReturnedData = {
+  dataLoading: boolean;
+  dataRetrievalError: string | null;
+  dataRetrieved: LineStatusDetails[] | StopPoint[] | undefined;
+};
