@@ -1,13 +1,13 @@
 import React from 'react';
 import {View} from 'react-native';
-import LineStopsDetails from '../components/lineInfo/lineStopsDetails';
+import LineStop from '../components/lineInfo/lineStop';
 
 const LineStopsScreen = ({route}) => {
   const {lineName, color} = route.params;
 
   return (
     <View>
-      <LineStopsDetails lineName={lineName} color={color} />
+      <LineStop lineName={lineName} color={color} />
     </View>
   );
 };

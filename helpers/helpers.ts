@@ -12,3 +12,15 @@ export function isLineStatusDetails(
 ): obj is LineStatusDetails[] {
   return typeof obj === 'object' && obj !== null && 'name' in obj[0];
 }
+
+export const lineColorMap = new Map();
+lineColorMap.set('central', 'red');
+lineColorMap.set('district', 'green');
+lineColorMap.set('piccadilly', 'purple');
+lineColorMap.set('northern', 'black');
+lineColorMap.set('jubilee', 'gray');
+lineColorMap.set('circle', 'yellow');
+lineColorMap.set('hammersmith-city', 'pink');
+lineColorMap.set('victoria', 'deepskyblue');
+lineColorMap.set('bakerloo', 'brown');
+lineColorMap.set('metropolitan', 'magenta');
