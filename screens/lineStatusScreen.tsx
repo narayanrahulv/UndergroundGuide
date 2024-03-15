@@ -20,6 +20,7 @@ const LineStatusScreen = ({navigation, route}) => {
           onPress={() =>
             navigation.navigate('LineStops', {
               lineName: lineName,
+              color: color,
             })
           }>
           <Text style={lineStatusStyles.linkText}>{'View stops'}</Text>

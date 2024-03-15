@@ -5,10 +5,11 @@ import {tflAPIEndpoints} from '../../dataFolder/undergroundLineData';
 import {useFetchData} from '../../hooks/useFetchData';
 import {useFetchHookReturnedData} from '../../dataFolder/appTypes';
 import {isStopPoint} from '../../helpers/helpers';
+import LineNameAndColorPanel from '../../components/lineInfo/lineNameAndColorPanel';
 
 //can navigatge here from lineSummaryDetails via a button that says "see stops on this line"
 const LineStopsDetails = (props: LineStopsProps) => {
-  const {lineName, section} = props;
+  const {lineName, color, section} = props;
 
   //if we have a value passed in for lineName, we will set a URL to call the API to retrieve stop points on the line
   let apiURL =
@@ -29,6 +30,11 @@ const LineStopsDetails = (props: LineStopsProps) => {
         <>
           {isStopPoint(stopsData.dataRetrieved) && (
             <>
+              {/* line stops header */}
+              <LineNameAndColorPanel
+                name={lineName ?? 'not found'}
+                color={color ?? ''}
+              />
               <ScrollView>
                 {stopsData.dataRetrieved.map(s => {
                   return (
@@ -37,6 +43,16 @@ const LineStopsDetails = (props: LineStopsProps) => {
                       key={s?.commonName}>
                       <View style={lineStopsPanelStyles.textCell}>
                         <Text>{s?.commonName}</Text>
+                      </View>
+                      <View style={lineStopsPanelStyles.textCellWithTopPadding}>
+                        <Text style={lineStopsPanelStyles.boldtext}>
+                          {'Modes of transport at this station'}
+                        </Text>
+                      </View>
+                      <View style={lineStopsPanelStyles.textCellWithTopPadding}>
+                        {s?.modes.map(m => {
+                          return <Text key={m}>{m}</Text>;
+                        })}
                       </View>
                     </View>
                   );
@@ -60,9 +76,16 @@ const lineStopsPanelStyles = StyleSheet.create({
     borderColor: '#000',
     padding: 10,
     margin: 20,
-    flexDirection: 'row',
+    flexDirection: 'column',
   },
   textCell: {
     flex: 1,
+  },
+  textCellWithTopPadding: {
+    flex: 1,
+    marginTop: 10,
+  },
+  boldtext: {
+    fontWeight: 'bold',
   },
 });

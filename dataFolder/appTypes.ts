@@ -47,7 +47,8 @@ export type LineStatusAndServiceTypeProps = {
 };
 
 export type LineStopsProps = {
-  lineName: string;
+  lineName: lineNames;
+  color?: string;
   section?: lineSummarySections;
 };
 
