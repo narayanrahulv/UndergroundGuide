@@ -72,22 +72,25 @@ const LineStop = (props: LineStopsProps) => {
                                   <>
                                     <View
                                       style={{
-                                        flex: 1,
-                                        flexDirection: 'row',
-                                        width: '100%',
-                                      }}>
-                                      <View key={i}>
-                                        <Text>{i}</Text>
-                                      </View>
-                                      <View
-                                        style={[
-                                          lineStopsPanelStyles.colorCell,
-                                          {
-                                            backgroundColor:
-                                              lineColorMap.get(i),
-                                          },
-                                        ]}
-                                      />
+                                        backgroundColor: lineColorMap.get(i),
+                                      }}
+                                      key={i}>
+                                      {lineColorMap.get(i) === 'yellow' ||
+                                        (lineColorMap.get(i) === 'pink' && (
+                                          <Text
+                                            key={i}
+                                            style={{color: 'black'}}>
+                                            {i}
+                                          </Text>
+                                        ))}
+                                      {lineColorMap.get(i) !== 'yellow' &&
+                                        lineColorMap.get(i) !== 'pink' && (
+                                          <Text
+                                            key={i}
+                                            style={{color: 'white'}}>
+                                            {i}
+                                          </Text>
+                                        )}
                                     </View>
                                   </>
                                 );
@@ -130,13 +133,6 @@ const lineStopsPanelStyles = StyleSheet.create({
   textCellWithTopPadding: {
     flex: 1,
     marginTop: 10,
-  },
-  colorCell: {
-    //flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-    width: '50%',
-    height: 10,
   },
   boldtext: {
     fontWeight: 'bold',
