@@ -1,5 +1,8 @@
 import {LineStatusDetails} from '../dataFolder/models/lineStatusModels';
-import {StopPoint} from '../dataFolder/models/stopPointsModels';
+import {
+  StopPoint,
+  additionalProperties,
+} from '../dataFolder/models/stopPointsModels';
 
 //=========
 //display related types
@@ -50,6 +53,10 @@ export type LineStopsProps = {
   lineName: lineNames;
   color?: string;
   section?: lineSummarySections;
+};
+
+export type LineStopsAccessibilityProps = {
+  additionalProperties: additionalProperties[];
 };
 
 export type useFetchDataProps = {

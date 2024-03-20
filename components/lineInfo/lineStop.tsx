@@ -6,6 +6,7 @@ import {useFetchData} from '../../hooks/useFetchData';
 import {useFetchHookReturnedData} from '../../dataFolder/appTypes';
 import {isStopPoint, lineColorMap} from '../../helpers/helpers';
 import LineNameAndColorPanel from '../../components/lineInfo/lineNameAndColorPanel';
+import LineStopAccessibility from '../lineInfo/lineStopAccessibility';
 
 //can navigatge here from lineSummaryDetails via a button that says "see stops on this line"
 const LineStop = (props: LineStopsProps) => {
@@ -43,7 +44,9 @@ const LineStop = (props: LineStopsProps) => {
                       key={s?.commonName}>
                       {/* stop common name */}
                       <View style={lineStopsPanelStyles.textCell}>
-                        <Text>{s?.commonName}</Text>
+                        <Text style={lineStopsPanelStyles.stationNameText}>
+                          {s?.commonName}
+                        </Text>
                       </View>
                       {/* modes of transport avaiilable at stop eg: tube/bus */}
                       <View style={lineStopsPanelStyles.textCellWithTopPadding}>
@@ -98,6 +101,23 @@ const LineStop = (props: LineStopsProps) => {
                             })}
                         </>
                       </View>
+                      {/* accessibility available at this station */}
+                      <View style={lineStopsPanelStyles.textCellWithTopPadding}>
+                        <Text style={lineStopsPanelStyles.boldtext}>
+                          {'Accessibility at this station'}
+                        </Text>
+                      </View>
+                      <View style={lineStopsPanelStyles.textCellWithTopPadding}>
+                        <LineStopAccessibility
+                          additionalProperties={s?.additionalProperties.filter(
+                            a =>
+                              a.category.toLowerCase() === 'accessibility' &&
+                              (a.key.toLowerCase() === 'accessvialift' ||
+                                a.key.toLowerCase() === 'limitedcapacitylift' ||
+                                a.key.toLowerCase() === 'toilet'),
+                          )}
+                        />
+                      </View>
                     </View>
                   );
                 })}
@@ -137,5 +157,6 @@ const lineStopsPanelStyles = StyleSheet.create({
   boldtext: {
     fontWeight: 'bold',
   },
+  stationNameText: {fontWeight: 'bold', color: 'darkgreen'},
   linkText: {fontWeight: 'bold', color: 'blue'},
 });
