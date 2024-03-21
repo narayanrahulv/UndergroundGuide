@@ -6,6 +6,7 @@ import {useFetchData} from '../../hooks/useFetchData';
 import {useFetchHookReturnedData} from '../../dataFolder/appTypes';
 import {isStopPoint, lineColorMap} from '../../helpers/helpers';
 import LineNameAndColorPanel from '../../components/lineInfo/lineNameAndColorPanel';
+import LineStopTransportModes from '../lineInfo/lineStopTransportModes';
 import LineStopAccessibility from '../lineInfo/lineStopAccessibility';
 
 //can navigatge here from lineSummaryDetails via a button that says "see stops on this line"
@@ -54,12 +55,7 @@ const LineStop = (props: LineStopsProps) => {
                           {'Modes of transport at this station'}
                         </Text>
                       </View>
-                      <View style={lineStopsPanelStyles.textCellWithTopPadding}>
-                        {s?.modes.map(m => {
-                          return <Text key={m}>{m}</Text>;
-                        })}
-                      </View>
-                      {/* other tube lines available at this station */}
+                      <LineStopTransportModes modes={s?.modes} />
                       <View style={lineStopsPanelStyles.textCellWithTopPadding}>
                         <Text style={lineStopsPanelStyles.boldtext}>
                           {'Other lines at this station'}
