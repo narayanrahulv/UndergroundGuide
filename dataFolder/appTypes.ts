@@ -55,6 +55,10 @@ export type LineStopsProps = {
   section?: lineSummarySections;
 };
 
+export type LineStopsTransportModesProps = {
+  modes: string[];
+};
+
 export type LineStopsAccessibilityProps = {
   additionalProperties: additionalProperties[];
 };
