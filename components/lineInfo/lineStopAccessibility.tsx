@@ -31,15 +31,6 @@ const LineStopAccessibility = (props: LineStopsAccessibilityProps) => {
 export default LineStopAccessibility;
 
 const lineStopsAccessibilityStyles = StyleSheet.create({
-  boxSimple: {
-    backgroundColor: '#fff',
-    borderRadius: 4,
-    borderWidth: 0.5,
-    borderColor: '#000',
-    padding: 10,
-    margin: 20,
-    flexDirection: 'column',
-  },
   textCellWithTopPadding: {
     flex: 1,
     marginTop: 10,
