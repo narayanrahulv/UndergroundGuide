@@ -2,6 +2,7 @@ import {LineStatusDetails} from '../dataFolder/models/lineStatusModels';
 import {
   StopPoint,
   additionalProperties,
+  LineModeGroup,
 } from '../dataFolder/models/stopPointsModels';
 
 //=========
@@ -53,6 +54,10 @@ export type LineStopsProps = {
   lineName: lineNames;
   color?: string;
   section?: lineSummarySections;
+};
+
+export type OtherLinesAtStopProps = {
+  lineModeGroups: LineModeGroup[];
 };
 
 export type LineStopsAccessibilityProps = {
