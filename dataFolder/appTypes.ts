@@ -58,6 +58,8 @@ export type LineStopsProps = {
 
 export type OtherLinesAtStopProps = {
   lineModeGroups: LineModeGroup[];
+export type LineStopsTransportModesProps = {
+  modes: string[];
 };
 
 export type LineStopsAccessibilityProps = {
