@@ -59,7 +59,7 @@ const LineStop = (props: LineStopsProps) => {
                       <LineStopTransportModes modes={s?.modes} />
                       <View style={lineStopsPanelStyles.textCellWithTopPadding}>
                         <Text style={lineStopsPanelStyles.boldtext}>
-                          {'Other lines at this station'}
+                          {'Lines serving this station'}
                         </Text>
                       </View>
                       <OtherLinesAtStop lineModeGroups={s?.lineModeGroups} />
