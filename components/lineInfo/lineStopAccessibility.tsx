@@ -14,7 +14,7 @@ const LineStopAccessibility = (props: LineStopsAccessibilityProps) => {
       {/* display available accessibility data */}
       {additionalProperties.map(ap => {
         return (
-          <View style={lineStopsAccessibilityStyles.rowContainer}>
+          <View style={lineStopsAccessibilityStyles.rowContainer} key={ap.key}>
             <View style={lineStopsAccessibilityStyles.rowCell}>
               <Text>{ap.key}</Text>
             </View>
