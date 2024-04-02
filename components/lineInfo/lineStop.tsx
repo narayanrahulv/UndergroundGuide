@@ -4,8 +4,9 @@ import {LineStopsProps} from '../../dataFolder/appTypes';
 import {tflAPIEndpoints} from '../../dataFolder/undergroundLineData';
 import {useFetchData} from '../../hooks/useFetchData';
 import {useFetchHookReturnedData} from '../../dataFolder/appTypes';
-import {isStopPoint, lineColorMap} from '../../helpers/helpers';
+import {isStopPoint} from '../../helpers/helpers';
 import LineNameAndColorPanel from '../../components/lineInfo/lineNameAndColorPanel';
+import OtherLinesAtStop from '../lineInfo/otherLinesAtStop';
 import LineStopTransportModes from '../lineInfo/lineStopTransportModes';
 import LineStopAccessibility from '../lineInfo/lineStopAccessibility';
 
@@ -61,59 +62,22 @@ const LineStop = (props: LineStopsProps) => {
                           {'Other lines at this station'}
                         </Text>
                       </View>
-                      <View style={lineStopsPanelStyles.textCellWithTopPadding}>
-                        <>
-                          {s?.lineModeGroups
-                            .filter(m => m.modeName === 'tube')
-                            .map(li => {
-                              return li?.lineIdentifier.map(i => {
-                                return (
-                                  <>
-                                    <View
-                                      style={{
-                                        backgroundColor: lineColorMap.get(i),
-                                      }}
-                                      key={i}>
-                                      {lineColorMap.get(i) === 'yellow' ||
-                                        (lineColorMap.get(i) === 'pink' && (
-                                          <Text
-                                            key={i}
-                                            style={{color: 'black'}}>
-                                            {i}
-                                          </Text>
-                                        ))}
-                                      {lineColorMap.get(i) !== 'yellow' &&
-                                        lineColorMap.get(i) !== 'pink' && (
-                                          <Text
-                                            key={i}
-                                            style={{color: 'white'}}>
-                                            {i}
-                                          </Text>
-                                        )}
-                                    </View>
-                                  </>
-                                );
-                              });
-                            })}
-                        </>
-                      </View>
+                      <OtherLinesAtStop lineModeGroups={s?.lineModeGroups} />
                       {/* accessibility available at this station */}
                       <View style={lineStopsPanelStyles.textCellWithTopPadding}>
                         <Text style={lineStopsPanelStyles.boldtext}>
                           {'Accessibility at this station'}
                         </Text>
                       </View>
-                      <View style={lineStopsPanelStyles.textCellWithTopPadding}>
-                        <LineStopAccessibility
-                          additionalProperties={s?.additionalProperties.filter(
-                            a =>
-                              a.category.toLowerCase() === 'accessibility' &&
-                              (a.key.toLowerCase() === 'accessvialift' ||
-                                a.key.toLowerCase() === 'limitedcapacitylift' ||
-                                a.key.toLowerCase() === 'toilet'),
-                          )}
-                        />
-                      </View>
+                      <LineStopAccessibility
+                        additionalProperties={s?.additionalProperties.filter(
+                          a =>
+                            a.category.toLowerCase() === 'accessibility' &&
+                            (a.key.toLowerCase() === 'accessvialift' ||
+                              a.key.toLowerCase() === 'limitedcapacitylift' ||
+                              a.key.toLowerCase() === 'toilet'),
+                        )}
+                      />
                     </View>
                   );
                 })}
