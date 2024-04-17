@@ -1,33 +1,18 @@
-import {useEffect, useState} from 'react';
+import axios from 'axios';
+import {useQuery} from 'react-query';
 import {useFetchDataProps} from '../dataFolder/appTypes';
-import {useFetchHookReturnedData} from '../dataFolder/appTypes';
 
-export function useFetchData(
-  props: useFetchDataProps,
-): useFetchHookReturnedData {
-  const {apiURL} = props;
+export function useFetchData(props: useFetchDataProps): any {
+  const {apiURL, section} = props;
 
-  const [dataLoadingState, setIsDataLoading] = useState(true);
-  const [dataRetrievalErrorState, setDataRetrievalError] = useState(null);
-  const [dataRetrievedState, setDataRetrieved] = useState();
-
-  useEffect(() => {
-    fetch(apiURL)
-      .then(resp => resp.json())
-      .then(data => {
-        setDataRetrieved(data);
-      })
-      .catch(error => {
-        setDataRetrievalError(error);
-      })
-      .finally(() => {
-        setIsDataLoading(false);
-      });
-  }, [apiURL]);
+  const {isLoading, error, data} = useQuery(
+    section === 'lineStatus' ? 'fetchLineData' : 'fetchLineStops',
+    () => axios(apiURL),
+  );
 
   return {
-    dataLoading: dataLoadingState,
-    dataRetrievalError: dataRetrievalErrorState,
-    dataRetrieved: dataRetrievedState,
+    isLoading: isLoading,
+    error: error,
+    data: data,
   };
 }

@@ -2,13 +2,12 @@ import {Text, View, StyleSheet, ScrollView} from 'react-native';
 import React from 'react';
 import {LineStopsProps} from '../../dataFolder/appTypes';
 import {tflAPIEndpoints} from '../../dataFolder/undergroundLineData';
-import {useFetchData} from '../../hooks/useFetchData';
-import {useFetchHookReturnedData} from '../../dataFolder/appTypes';
-import {isStopPoint} from '../../helpers/helpers';
 import LineNameAndColorPanel from '../../components/lineInfo/lineNameAndColorPanel';
 import OtherLinesAtStop from '../lineInfo/otherLinesAtStop';
 import LineStopTransportModes from '../lineInfo/lineStopTransportModes';
 import LineStopAccessibility from '../lineInfo/lineStopAccessibility';
+import {useFetchData} from '../../hooks/useFetchData';
+import {StopPoint} from '../../dataFolder/models/stopPointsModels';
 
 //can navigatge here from lineSummaryDetails via a button that says "see stops on this line"
 const LineStop = (props: LineStopsProps) => {
@@ -20,18 +19,31 @@ const LineStop = (props: LineStopsProps) => {
     lineName +
     tflAPIEndpoints.lineStopsSequenceUrl.suffix;
 
-  //call the API via the useFetchData custom hook
-  const stopsData: useFetchHookReturnedData = useFetchData({
+  const {isLoading, error, data} = useFetchData({
     apiURL: apiURL,
     section: section,
   });
 
+  const displayData: StopPoint[] = data?.data;
+
   return (
     <>
-      {/* stop points are only shown if we have a value for dataRetrieved */}
-      {stopsData.dataRetrieved && stopsData.dataRetrieved.length > 0 && (
+      {/* if we encounter an error while retrieving data, display an error message */}
+      {error && (
+        <View style={lineStopsPanelStyles.boxSimple}>
+          <Text>{'Something went wrong while retrieving data'}</Text>
+        </View>
+      )}
+
+      {isLoading ? (
+        // display loading message if applicable
+        <View style={lineStopsPanelStyles.boxSimple}>
+          <Text>{'Retrieving line stops information'}</Text>
+        </View>
+      ) : (
         <>
-          {isStopPoint(stopsData.dataRetrieved) && (
+          {/* stop points are only shown if we have a value for dataRetrieved  */}
+          {displayData && (
             <>
               {/* line stops header */}
               <LineNameAndColorPanel
@@ -39,18 +51,18 @@ const LineStop = (props: LineStopsProps) => {
                 color={color ?? ''}
               />
               <ScrollView>
-                {stopsData.dataRetrieved.map(s => {
+                {displayData.map(s => {
                   return (
                     <View
                       style={lineStopsPanelStyles.boxSimple}
                       key={s?.commonName}>
-                      {/* stop common name */}
                       <View style={lineStopsPanelStyles.textCell}>
                         <Text style={lineStopsPanelStyles.stationNameText}>
                           {s?.commonName}
                         </Text>
                       </View>
-                      {/* modes of transport avaiilable at stop eg: tube/bus */}
+
+                      {/* modes of transport available at stop eg: tube/bus */}
                       <View style={lineStopsPanelStyles.textCellWithTopPadding}>
                         <Text style={lineStopsPanelStyles.boldtext}>
                           {'Modes of transport at this station'}

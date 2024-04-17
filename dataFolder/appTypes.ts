@@ -27,7 +27,7 @@ export type lineNames =
   | 'select a line'
   | 'not found';
 
-export type lineSummarySections = 'basic' | 'status' | 'serviceType';
+export type lineSummarySections = 'lineStatus' | 'lineStop'; //'basic' | 'status' | 'serviceType';
 
 //=========
 //props

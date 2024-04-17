@@ -2,12 +2,9 @@ import {Text, View, StyleSheet} from 'react-native';
 import React from 'react';
 import {tflAPIEndpoints} from '../../dataFolder/undergroundLineData';
 import {useFetchData} from '../../hooks/useFetchData';
-import {
-  LineStatusAndServiceTypeProps,
-  useFetchHookReturnedData,
-} from '../../dataFolder/appTypes';
+import {LineStatusAndServiceTypeProps} from '../../dataFolder/appTypes';
 import LineNameAndColorPanel from '../../components/lineInfo/lineNameAndColorPanel';
-import {isLineStatusDetails} from '../../helpers/helpers';
+import {LineStatusDetails} from '../../dataFolder/models/lineStatusModels';
 
 const LineStatusAndService = (props: LineStatusAndServiceTypeProps) => {
   const {lineName, section, color, statusHeadingText, serviceTypesHeadingText} =
@@ -20,85 +17,93 @@ const LineStatusAndService = (props: LineStatusAndServiceTypeProps) => {
       tflAPIEndpoints.lineStatusEndpointUrl.suffix
     : '';
 
-  //call the API via the useFetchData custom hook
-  const lineStatusData: useFetchHookReturnedData = useFetchData({
+  const {isLoading, error, data} = useFetchData({
     apiURL: apiURL,
     section: section,
   });
 
+  const displayData: LineStatusDetails[] = data?.data;
+
   return (
     <>
-      {/* line status & service types are only shown if we have a value for lineStatusData.dataRetrieved */}
-      {lineStatusData.dataRetrieved &&
-        lineStatusData.dataRetrieved !== [] &&
-        lineStatusData.dataRetrieved.length > 0 &&
-        isLineStatusDetails(lineStatusData.dataRetrieved) && (
-          <>
-            {/* line status header */}
-            <LineNameAndColorPanel
-              name={lineName ?? 'not found'}
-              color={color ?? ''}
-            />
-            {/* line status heading text */}
-            <View style={serviceTypeSummaryStyles.contentheadercontainer}>
-              {statusHeadingText?.map(text => {
-                return (
-                  <View style={serviceTypeSummaryStyles.headerCell} key={text}>
-                    <Text style={serviceTypeSummaryStyles.headerText}>
-                      {text}
-                    </Text>
-                  </View>
-                );
-              })}
-            </View>
-            {/* line status summary */}
-            <View style={serviceTypeSummaryStyles.contentcontainer}>
-              {lineStatusData.dataLoading ? (
+      {/* if we encounter an error while retrieving data, display an error message */}
+      {error && (
+        <View style={serviceTypeSummaryStyles.contentcontainer}>
+          <Text>{'Something went wrong while retrieving data'}</Text>
+        </View>
+      )}
+
+      {isLoading ? (
+        // display loading message if applicable
+        <View style={serviceTypeSummaryStyles.contentcontainer}>
+          <Text>{'Retrieving line status and line service information'}</Text>
+        </View>
+      ) : (
+        <>
+          {displayData[0]?.lineStatuses[0] && (
+            <>
+              {/* line status header */}
+              <LineNameAndColorPanel
+                name={lineName ?? 'not found'}
+                color={color ?? ''}
+              />
+
+              {/* line status heading text */}
+              <View style={serviceTypeSummaryStyles.contentheadercontainer}>
+                {statusHeadingText?.map(text => {
+                  return (
+                    <View
+                      style={serviceTypeSummaryStyles.headerCell}
+                      key={text}>
+                      <Text style={serviceTypeSummaryStyles.headerText}>
+                        {text}
+                      </Text>
+                    </View>
+                  );
+                })}
+              </View>
+
+              {/* line status summary */}
+              <View style={serviceTypeSummaryStyles.contentcontainer}>
                 <View style={serviceTypeSummaryStyles.summaryCell}>
-                  <Text>{'Retrieving line status'}</Text>
+                  <Text>
+                    {displayData[0]?.lineStatuses[0]?.statusSeverityDescription}
+                  </Text>
                 </View>
-              ) : (
-                <>
-                  <View style={serviceTypeSummaryStyles.summaryCell}>
-                    <Text>
-                      {
-                        lineStatusData.dataRetrieved[0]?.lineStatuses[0]
-                          ?.statusSeverityDescription
-                      }
-                    </Text>
-                  </View>
-                  <View style={serviceTypeSummaryStyles.summaryCell}>
-                    <Text>
-                      {lineStatusData.dataRetrieved[0]?.lineStatuses[0]?.reason}
-                    </Text>
-                  </View>
-                </>
-              )}
-            </View>
-            {/* line service types heading text */}
-            <View style={serviceTypeSummaryStyles.contentheadercontainer}>
-              {serviceTypesHeadingText?.map(text => {
-                return (
-                  <View style={serviceTypeSummaryStyles.headerCell} key={text}>
-                    <Text style={serviceTypeSummaryStyles.headerText}>
-                      {text}
-                    </Text>
-                  </View>
-                );
-              })}
-            </View>
-            {/* line service types (i.e. regular/night service) summary: serviceType */}
-            <View style={serviceTypeSummaryStyles.contentcontainer}>
-              {lineStatusData.dataRetrieved[0]?.serviceTypes.map(st => (
-                <View
-                  style={serviceTypeSummaryStyles.summaryCell}
-                  key={st.name}>
-                  <Text>{st.name}</Text>
+                <View style={serviceTypeSummaryStyles.summaryCell}>
+                  <Text>{displayData[0]?.lineStatuses[0]?.reason}</Text>
                 </View>
-              ))}
-            </View>
-          </>
-        )}
+              </View>
+
+              {/* line service types heading text */}
+              <View style={serviceTypeSummaryStyles.contentheadercontainer}>
+                {serviceTypesHeadingText?.map(text => {
+                  return (
+                    <View
+                      style={serviceTypeSummaryStyles.headerCell}
+                      key={text}>
+                      <Text style={serviceTypeSummaryStyles.headerText}>
+                        {text}
+                      </Text>
+                    </View>
+                  );
+                })}
+              </View>
+
+              {/* line service types (i.e. regular/night service) summary: serviceType */}
+              <View style={serviceTypeSummaryStyles.contentcontainer}>
+                {displayData[0]?.serviceTypes.map(st => (
+                  <View
+                    style={serviceTypeSummaryStyles.summaryCell}
+                    key={st.name}>
+                    <Text>{st.name}</Text>
+                  </View>
+                ))}
+              </View>
+            </>
+          )}
+        </>
+      )}
     </>
   );
 };

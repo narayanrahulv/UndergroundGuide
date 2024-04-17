@@ -7,7 +7,7 @@ const LineStopsScreen = ({route}) => {
 
   return (
     <View>
-      <LineStop lineName={lineName} color={color} />
+      <LineStop lineName={lineName} section={'lineStop'} color={color} />
     </View>
   );
 };
