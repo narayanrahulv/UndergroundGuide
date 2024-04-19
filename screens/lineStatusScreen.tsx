@@ -10,6 +10,7 @@ const LineStatusScreen = ({navigation, route}) => {
     <View>
       <LineStatusAndService
         lineName={lineName}
+        section={'lineStatus'}
         color={color}
         statusHeadingText={statusHeadingText}
         serviceTypesHeadingText={serviceTypesHeadingText}
