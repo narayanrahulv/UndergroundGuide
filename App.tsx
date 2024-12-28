@@ -17,9 +17,7 @@ import {QueryClientProvider, QueryClient} from 'react-query';
 
 const Stack = createNativeStackNavigator();
 
-//TEMP TESTING CODE
 const queryClient = new QueryClient();
-//END TEMP TESTING CODE
 
 function App(): React.JSX.Element {
   return (

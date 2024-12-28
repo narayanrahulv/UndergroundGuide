@@ -14,7 +14,7 @@ import {
 } from '../dataFolder/undergroundLineData';
 import LineNameAndColorPanel from '../components/lineInfo/lineNameAndColorPanel';
 
-const MainScreen = ({navigation}) => {
+const MainScreen = ({navigation}: {navigation: any}) => {
   return (
     <>
       <View style={mainScreenStyles.maincontainer}>
