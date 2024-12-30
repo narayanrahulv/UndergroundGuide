@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import LineStop from '../components/lineInfo/lineStop';
+import {LineStop} from '../components/lineInfo';
 
 // @ts-ignore
 const LineStopsScreen = ({route}) => {

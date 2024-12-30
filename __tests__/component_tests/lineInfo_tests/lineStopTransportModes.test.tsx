@@ -1,6 +1,6 @@
 import React from 'react';
 import {render} from '@testing-library/react-native'; // This renders the component
-import LineStopTransportModes from '../../../components/lineInfo/lineStopTransportModes';
+import {LineStopTransportModes} from '../../../components/lineInfo';
 import {LineStopsTransportModesProps} from '../../../dataFolder/appTypes';
 
 // Mock data for tests

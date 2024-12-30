@@ -2,11 +2,11 @@ import {Text, View, StyleSheet, ScrollView} from 'react-native';
 import React from 'react';
 import {LineStopsProps} from '../../dataFolder/appTypes';
 import {tflAPIEndpoints} from '../../dataFolder/undergroundLineData';
-import LineNameAndColorPanel from '../../components/lineInfo/lineNameAndColorPanel';
-import OtherLinesAtStop from '../lineInfo/otherLinesAtStop';
-import LineStopTransportModes from '../lineInfo/lineStopTransportModes';
-import LineStopAccessibility from '../lineInfo/lineStopAccessibility';
-import {useFetchData} from '../../hooks/useFetchData';
+import {LineNameAndColorPanel} from '../../components/lineInfo';
+import {OtherLinesAtStop} from '../lineInfo';
+import {LineStopTransportModes} from '../lineInfo';
+import {LineStopAccessibility} from '../lineInfo';
+import {useFetchData} from '../../hooks';
 import {StopPoint} from '../../dataFolder/models/stopPointsModels';
 
 //can navigatge here from lineSummaryDetails via a button that says "see stops on this line"
