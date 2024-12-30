@@ -2,6 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import LineStop from '../components/lineInfo/lineStop';
 
+// @ts-ignore
 const LineStopsScreen = ({route}) => {
   const {lineName, color} = route.params;
 
