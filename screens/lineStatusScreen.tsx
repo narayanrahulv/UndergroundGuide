@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, TouchableOpacity, StyleSheet, Text} from 'react-native';
-import LineStatusAndService from '../components/lineInfo/lineStatusAndService';
+import {LineStatusAndService} from '../components/lineInfo';
 
 // @ts-ignore
 const LineStatusScreen = ({navigation, route}) => {

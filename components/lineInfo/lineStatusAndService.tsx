@@ -1,9 +1,9 @@
 import {Text, View, StyleSheet} from 'react-native';
 import React from 'react';
 import {tflAPIEndpoints} from '../../dataFolder/undergroundLineData';
-import {useFetchData} from '../../hooks/useFetchData';
+import {useFetchData} from '../../hooks';
 import {LineStatusAndServiceTypeProps} from '../../dataFolder/appTypes';
-import LineNameAndColorPanel from '../../components/lineInfo/lineNameAndColorPanel';
+import {LineNameAndColorPanel} from '../../components/lineInfo';
 import {LineStatusDetails} from '../../dataFolder/models/lineStatusModels';
 
 const LineStatusAndService = (props: LineStatusAndServiceTypeProps) => {

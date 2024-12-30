@@ -9,9 +9,9 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import MainScreen from './screens/mainScreen';
-import LineStatusScreen from './screens/lineStatusScreen';
-import LineStopsScreen from './screens/lineStopsScreen';
+import {MainScreen} from './screens';
+import {LineStatusScreen} from './screens';
+import {LineStopsScreen} from './screens';
 
 import {QueryClientProvider, QueryClient} from 'react-query';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import {render} from '@testing-library/react-native';
-import LineNameAndColorPanel from '../../../components/lineInfo/lineNameAndColorPanel';
+import {LineNameAndColorPanel} from '../../../components/lineInfo';
 import {highLevelLineDetails} from '../../../dataFolder/appTypes';
 
 describe('LineNameAndColorPanel', () => {

@@ -2,7 +2,7 @@ import React from 'react';
 import {render} from '@testing-library/react-native';
 import {Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import MainScreen from '../../screens/mainScreen';
+import {MainScreen} from '../../screens';
 import {undergroundLineDetails} from '../../dataFolder/undergroundLineData';
 
 // Mocking the LineNameAndColorPanel component
