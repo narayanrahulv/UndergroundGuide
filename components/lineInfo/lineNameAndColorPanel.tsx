@@ -12,6 +12,7 @@ const LineNameAndColorPanel = (props: highLevelLineDetails) => {
         <Text>{name}</Text>
       </View>
       <View
+        testID="line-name-and-color-cell"
         style={[
           lineNameAndColorPanelStyles.colorCell,
           {backgroundColor: color},

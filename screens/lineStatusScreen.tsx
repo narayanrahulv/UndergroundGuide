@@ -2,6 +2,7 @@ import React from 'react';
 import {View, TouchableOpacity, StyleSheet, Text} from 'react-native';
 import LineStatusAndService from '../components/lineInfo/lineStatusAndService';
 
+// @ts-ignore
 const LineStatusScreen = ({navigation, route}) => {
   const {lineName, color, statusHeadingText, serviceTypesHeadingText} =
     route.params;
