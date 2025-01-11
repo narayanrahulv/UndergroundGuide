@@ -34,7 +34,7 @@ const mockStopData: StopPoint[] = [
   },
 ];
 
-describe('LineStop Component', () => {
+describe('LineStop', () => {
   it('should render loading state correctly', () => {
     // Mock the hook to return a loading state
     (useFetchData as jest.Mock).mockReturnValue({
